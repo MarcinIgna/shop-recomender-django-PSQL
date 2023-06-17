@@ -1,29 +1,35 @@
+from typing import Any
 from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+from django.views.generic import FormView
+from django.template.response import TemplateResponse
+from django.core.handlers.wsgi import WSGIRequest
+from django.urls import reverse_lazy
 
 from shop_recomender.models.user import User
-from django.http import HttpResponse
+from shop_recomender.froms.user import UserFrom
+
+
+def home(request: WSGIRequest) -> HttpResponse:
+    return TemplateResponse(request, 'user/home.html', {})
+
+
+def user_redirect(request: WSGIRequest) -> HttpResponse:
+    return TemplateResponse(request, 'user/redirect.html', {})
 
 
 
-class UserView():
-    @staticmethod
-    def add_user():
-        name = input("Enter your name: ")
-        email = input("Enter your email: ")
-        username = input("Enter your username: ")
-        password = input("Enter your password: ")
-        user, created= User(name=name, email=email, username=username, password=password)
-        user.save()
-        if created:
-            return HttpResponse("User added successfully")
-        else:
-            return HttpResponse("Something went wrong")
-        #regiestration
-    @staticmethod
-    def delete_user(request,user_id):
-        user = User.objects.get(id=user_id)
-        user.delete()
-        return HttpResponse("User deleted successfully")
-        
-
+class UserViewCreate(FormView):
+    template_name = 'user/user_regiestration.html'
+    form_class = UserFrom
+    
+    def get_success_url(self) -> str:
+        return reverse_lazy('user:redirection')
+    
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form: User) -> HttpResponse:
+        User.objects.create(**form.cleaned_data)
+        return super().form_valid(form)
     

@@ -1,6 +1,4 @@
-from django.views import View
-from django.http import HttpResponse
+from django.shortcuts import render
 
-class HomeView(View):
-    def get(self, request):
-        return HttpResponse("Welcome to the home page")
+def home_base(request):
+    return render(request, 'user/home.html')
