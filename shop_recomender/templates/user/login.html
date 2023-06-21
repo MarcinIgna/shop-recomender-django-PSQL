@@ -1,17 +1,17 @@
-{% extends 'user/home.html' %}
-
-{% block content %}
-    <h2>Login</h2>
-    <form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <form method="POST">
         {% csrf_token %}
-        <div>
-            {{ form.username.label_tag }}
-            {{ form.username }}
-        </div>
-        <div>
-            {{ form.password.label_tag }}
-            {{ form.password }}
-        </div>
-        <button type="submit">Login</button>
+        <table>
+            {{ form.as_p }}
+        </table>
+        <button> Submit </button>
     </form>
-{% endblock %}
+</body>
+</html>

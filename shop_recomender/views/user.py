@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 
 from shop_recomender.models.user import User
 from shop_recomender.froms.user import UserFrom
+from django.contrib.auth.hashers import make_password
 
 
 def home(request: WSGIRequest) -> HttpResponse:
@@ -30,6 +31,8 @@ class UserViewCreate(FormView):
         return super().post(request, *args, **kwargs)
     
     def form_valid(self, form: User) -> HttpResponse:
-        User.objects.create(**form.cleaned_data)
+        user = User.objects.create(**form.cleaned_data)
+        # user.password = make_password(user.password)
+        # user.save()
         return super().form_valid(form)
     
