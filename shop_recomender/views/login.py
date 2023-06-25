@@ -22,9 +22,14 @@ def login(request):
                 return redirect('user:regiestration')
             # Check if the password is correct
             if check_password(password, db_user.password):
-                request.session['my_user_id'] = db_user.id
-                print(f"User {username} logged in successfully.")
-                return redirect('user:main_home')
+                if db_user.is_admin:
+                    request.session['my_user_id'] = db_user.id
+                    print(f"User {username} welcome admin user.")
+                    return redirect('user:admin_home')
+                else:
+                    request.session['my_user_id'] = db_user.id
+                    print(f"User {username} logged in successfully.")
+                    return redirect('user:main_home')
             else:
                 # Invalid password
                 print(f"Invalid password for user {username}.")

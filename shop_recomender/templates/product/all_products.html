@@ -14,12 +14,12 @@
           <th>Description</th>
           <th>Category</th>
         </tr>
-        {% for item in product %}
+        {% for product in products %}
             <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.category.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.category.name }}</td>
             </tr>
         {% endfor %}
     </table>

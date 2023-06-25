@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+    <h1>Welcome {{user.name}} you are logged as admin!</h1>
+    <p>Choose your action:</p>
+
+    <a href="{% url 'user:all_users' %}"><button>See list of users</button></a>
+    <a href="{% url 'user:add_product' %}"><button>Add Product</button></a>
+    <a href="{% url 'user:all_products' %}"><button>list of products</button></a>
+    
+</body>
+</html>

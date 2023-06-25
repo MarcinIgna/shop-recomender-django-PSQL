@@ -13,5 +13,9 @@ urlpatterns = [
     path('redirect/', user_redirect, name='redirection'),
     path('login/', login, name='login'),
     path('home/', after_login, name='main_home'),
+    path('home/', after_login, name='admin_home'),
+    path("all_users/", AdminView.see_all_users, name="all_users"),
+    path("all_products/", AdminView.see_all_products, name="all_products"),
+    path("add_product/", ProductView.as_view(), name="add_product"),
     
 ]

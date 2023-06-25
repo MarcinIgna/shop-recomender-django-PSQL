@@ -32,7 +32,5 @@ class UserViewCreate(FormView):
     
     def form_valid(self, form: User) -> HttpResponse:
         user = User.objects.create(**form.cleaned_data)
-        # user.password = make_password(user.password)
-        # user.save()
         return super().form_valid(form)
     
