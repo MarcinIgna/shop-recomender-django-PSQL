@@ -5,4 +5,4 @@ from shop_recomender.models.product import Product
 class UserItemMatrix(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    interaction = models.IntegerField()
+    interaction = models.IntegerField(default=0)  # Update the default value based on your requirements
