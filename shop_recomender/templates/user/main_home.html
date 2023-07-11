@@ -5,14 +5,14 @@
     <title>Homepage</title>
 </head>
 <body>
-    <h1>Welcome {{user.name}} to our website!</h1>
+    <h1>Welcome {{ user.name }} to our website!</h1>
     <p>Based on your recent purchases, we have created recommendations especially for you:</p>
     <ul>
         {% for recommendation in recommendations %}
         <li>{{ recommendation.name }}</li>
         {% endfor %}
     </ul>
-
+    <a href="{% url 'user:shop' %}"><button>List of Products</button></a>
     <a href="{% url 'user:login' %}"><button>Settings</button></a>
 </body>
 </html>

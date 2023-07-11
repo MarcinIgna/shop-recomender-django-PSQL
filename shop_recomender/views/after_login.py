@@ -5,6 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from shop_recomender.models.user import User
 from shop_recomender.models.order import Order
 from shop_recomender.models.product import Product
+import matplotlib.pyplot as plt
 
 def after_login(request):
     user_id = request.session.get('my_user_id')
@@ -36,6 +37,18 @@ def get_recommendations(user):
     tfidf_matrix = tfidf_vectorizer.fit_transform(product_descriptions).toarray()
 
     print("TF-IDF Matrix Shape:", tfidf_matrix.shape)
+    
+    # Visualize the TF-IDF values for a specific product
+    product_index = 0  # Index of the product in the TF-IDF matrix
+    tfidf_values = tfidf_matrix[product_index]
+
+    # Plot a bar chart of the TF-IDF values
+    plt.bar(range(len(tfidf_values)), tfidf_values)
+    plt.xlabel('Feature Index')
+    plt.ylabel('TF-IDF Value')
+    plt.title('TF-IDF Values for Product')
+    # Save the figure as an image file
+    plt.savefig('tfidf_plot.png')
 
     # Calculate similarity between user profile and all products
     user_profile = tfidf_matrix.mean(axis=0)

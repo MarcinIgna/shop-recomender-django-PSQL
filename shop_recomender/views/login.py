@@ -32,4 +32,4 @@ def login(request):
             messages.error(request, f"Invalid username or password for user {username}.")  # Display error message
             return redirect('user:login')
     else:
-        return render(request, 'user/login.html', {'form': form})
+        return render(request, 'registration/login.html', {'form': form})
