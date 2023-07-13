@@ -1,0 +1,35 @@
+/* static/css/login.css */
+
+/* Style for the form container */
+form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+/* Style for the form input fields */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Style for the form submit button */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style for the error messages */
+ul {
+    color: red;
+    margin-bottom: 10px;
+    padding-left: 0;
+}
+
+ul li {
+    list-style-type: none;
+}

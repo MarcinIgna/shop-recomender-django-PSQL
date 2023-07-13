@@ -1,0 +1,18 @@
+<header>
+    <h1>My Shop</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'user:home' %}">Home</a></li>
+            <li><a href="{% url 'user:shop' %}">Shop</a></li>
+            <li><a href="{% url 'user:basket' %}">Basket</a></li>
+            <li><a href="{% url 'user:checkout' %}">Checkout</a></li>
+            {% if not user.is_authenticated %}
+            <li><a href="{% url 'user:logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>

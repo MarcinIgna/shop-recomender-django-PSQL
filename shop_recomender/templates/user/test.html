@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+    <h1>Welcome {{user.name}} to our website!</h1>
+    <p>Based on your recent purchases, we have created recommendations especially for you:</p>
+    <ul>
+        {% for recommendation in recommendations %}
+        <li>{{ recommendation.name }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'user:registration' %}"><button>Shop</button></a>
+    <a href="{% url 'user:login' %}"><button>Settings</button></a>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+    <h1>Welcome {{user.name}} to our website!</h1>
+    <p>Based on your recent purchases, we have created recommendations especially for you :</p>
+    <p>1. rec1</p>
+    <p>2. rec2</p>
+    <p>3. rec3</p>
+    <a href="{% url 'user:regiestration' %}"><button>Shop</button></a>
+    <a href="{% url 'user:login' %}"><button>Settings</button></a>
+    
+</body>
+</html>

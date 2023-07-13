@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <h2>Basket Contents</h2>
+    <ul>
+        {% for product in basket.products.all %}
+            <li>{{ product.name }}</li>
+        {% empty %}
+            <li>No items in the basket.</li>
+        {% endfor %}
+    </ul>
+    <p>Total Price: ${{ total_price }}</p>
+    
+    <h2>Enter Your Details</h2>
+    <form method="POST" action="{% url 'user:checkout' %}">
+        {% csrf_token %}
+        <!-- Add form fields for user details -->
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <!-- Add more form fields as needed -->
+        <button type="submit">Checkout</button>
+    </form>
+</body>
+</html>
