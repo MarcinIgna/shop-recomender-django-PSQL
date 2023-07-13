@@ -15,7 +15,7 @@ def authenticate(username, password):
     except:
         return None
 
-def login(request, user):
+def login_util(request, user):
     try:
         user.is_authenticated = True
         request.user = user
