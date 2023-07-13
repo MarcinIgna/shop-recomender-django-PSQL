@@ -9,6 +9,6 @@ class User(models.Model):
     registration_date = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
     
-    def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.password = make_password(self.password)
+    #     super().save(*args, **kwargs)

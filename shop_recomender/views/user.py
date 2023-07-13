@@ -53,17 +53,30 @@ def add_to_basket(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=product_id)
         
-        # Retrieve or create the user's basket
-        basket, created = Basket.objects.get_or_create(
-            user_id=request.session.get('my_user_id')
-            )
-        
-        # Add the product to the user's basket
-        basket.products.add(product)
-        
-        return JsonResponse({'message': 'Product added to basket.'})
+        if request.user.is_authenticated:
+            basket, created = Basket.objects.get_or_create(user=request.user)
+            basket.products.add(product)
+            return JsonResponse({'message': 'Product added to basket.'})
+        else:
+            return JsonResponse({'message': 'User not authenticated.'}, status=401)
     
     return JsonResponse({'message': 'Invalid request.'}, status=400)
+
+
+
+def basket_view(request):
+    user_id = request.user.id
+    try:
+        basket = Basket.objects.get(user_id=user_id)
+        products = basket.products.all()
+        total_price = basket.calculate_total_price()
+        return render(request, 'user/basket.html', {'products': products, 'total_price': total_price})
+    except Basket.DoesNotExist:
+        products = []
+        total_price = 0
+        return render(request, 'user/basket.html', {'products': products, 'total_price': total_price})
+
+
 
 
 def checkout(request):
@@ -84,15 +97,6 @@ def checkout(request):
     # Redirect to a thank you page or a confirmation page after checkout
     return redirect('user:checkedout')
 
-
-def basket_view(request):
-    x = request.session.get('my_user_id')
-    print("HEREEEERWERWEREWREW",x)
-    user = request.user
-    basket = Basket.objects.get(user_id=x)
-    products = basket.products.all()
-    total_price = basket.calculate_total_price()
-    return render(request, 'user/basket.html', {'products': products, 'total_price': total_price})
 
 
 def logout_view(request):
