@@ -8,7 +8,9 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     registration_date = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
+    is_authenticated = models.BooleanField(default=False)
     
-    # def save(self, *args, **kwargs):
-    #     self.password = make_password(self.password)
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password, salt="defaultSalt")
+        super().save(*args, **kwargs)
+    

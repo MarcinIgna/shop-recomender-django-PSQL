@@ -1,10 +1,26 @@
 from django.shortcuts import render, redirect
 from shop_recomender.models.user import User
 from django.contrib.auth.hashers import check_password
-from shop_recomender.froms.login import UserFromLogin
+from shop_recomender.forms.login import UserFromLogin
 from django.contrib import messages
-from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth.hashers import make_password
 
+
+
+def authenticate(username, password):
+    hashed_password = make_password(password, salt="defaultSalt")
+    try:
+        user = User.objects.get(username=username, password=hashed_password)
+        return user
+    except:
+        return None
+
+def login(request, user):
+    try:
+        user.is_authenticated = True
+        request.user = user
+    except:
+        return request
 
 def login(request):
     form = UserFromLogin()

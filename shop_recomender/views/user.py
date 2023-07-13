@@ -7,12 +7,13 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth.hashers import make_password
 
 from shop_recomender.models.order import Order
 from shop_recomender.models.basket import Basket
 from shop_recomender.models.product import Product
 from shop_recomender.models.user import User
-from shop_recomender.froms.user import UserFrom
+from shop_recomender.forms.user import UserFrom
 
 
 
@@ -36,7 +37,13 @@ class UserViewCreate(FormView):
         return super().post(request, *args, **kwargs)
     
     def form_valid(self, form: User) -> HttpResponse:
+        # password = form.cleaned_data.pop("password")
         user = User.objects.create(**form.cleaned_data)
+        print(user.password)
+        print(form.cleaned_data["password"])
+        print(make_password(form.cleaned_data["password"],  salt="defaultSalt"))
+
+
         return super().form_valid(form)
     
    

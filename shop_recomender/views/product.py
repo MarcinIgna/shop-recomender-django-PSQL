@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from shop_recomender.models.product import Product
 from django.template.response import TemplateResponse
 from django.views.generic import FormView
-from shop_recomender.froms.product import ProductForm
+from shop_recomender.forms.product import ProductForm
 from django.urls import reverse_lazy
 
 class ProductView(FormView):
