@@ -27,7 +27,8 @@ class UserFrom(forms.Form):
     )
     password = forms.CharField(
         label="Password",
-        widget=forms.TextInput(
-        attrs={"placeholder": "Enter your username"}
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Enter your password"}
         )
-    )
+)
+
