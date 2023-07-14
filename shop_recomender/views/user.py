@@ -28,16 +28,31 @@ def user_redirect(request: WSGIRequest) -> HttpResponse:
 class UserViewCreate(FormView):
     template_name = 'user/user_regiestration.html'
     form_class = UserFrom
+    success_url = reverse_lazy('user:redirection')
+
+    def form_valid(self, form):
+        # Create a new user instance and save it
+        user = User.objects.create_user(
+            name=form.cleaned_data['name'],
+            email=form.cleaned_data['email'],
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password']
+        )
+        # Redirect to the success URL
+        return redirect(self.get_success_url())
+# class UserViewCreate(FormView):
+#     template_name = 'user/user_regiestration.html'
+#     form_class = UserFrom
     
-    def get_success_url(self) -> str:
-        return reverse_lazy('user:redirection')
+#     def get_success_url(self) -> str:
+#         return reverse_lazy('user:redirection')
     
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        return super().post(request, *args, **kwargs)
+#     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+#         return super().post(request, *args, **kwargs)
     
-    def form_valid(self, form: User) -> HttpResponse:
-        user = User.objects.create(**form.cleaned_data)
-        return super().form_valid(form)
+#     def form_valid(self, form: User) -> HttpResponse:
+#         user = User.objects.create(**form.cleaned_data)
+#         return super().form_valid(form)
     
    
 def shop(request):
@@ -52,9 +67,10 @@ def shop(request):
 def add_to_basket(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=product_id)
-        
-        if request.user.is_authenticated:
-            basket, created = Basket.objects.get_or_create(user=request.user)
+        print("add to basket: ",request.session.get('my_user_id'))
+        if request.session.get('my_user_id'):
+            user_id = request.session.get('my_user_id')
+            basket, created = Basket.objects.get_or_create(user_id=user_id)
             basket.products.add(product)
             return JsonResponse({'message': 'Product added to basket.'})
         else:
@@ -65,7 +81,7 @@ def add_to_basket(request, product_id):
 
 
 def basket_view(request):
-    user_id = request.user.id
+    user_id = request.session.get('my_user_id')
     try:
         basket = Basket.objects.get(user_id=user_id)
         products = basket.products.all()
@@ -80,7 +96,8 @@ def basket_view(request):
 
 
 def checkout(request):
-    basket = Basket.objects.get(user=request.user)
+    user_id = request.session.get('my_user_id')
+    basket = Basket.objects.get(user_id=user_id)
     products = basket.products.all()
     total_price = basket.calculate_total_price()
     
@@ -88,14 +105,15 @@ def checkout(request):
     # Calculate the total price, create an order, etc.
     
     # Create the order
-    order = Order.objects.create(user=request.user, total_price=total_price)
-    order.products.set(products)
+    for product in products:
+        order = Order.objects.create(user_id=user_id, product=product, total_price=total_price)
     
     # Clear the user's basket after checkout
     basket.products.clear()
     
     # Redirect to a thank you page or a confirmation page after checkout
-    return redirect('user:checkedout')
+    return redirect('user:thx')
+
 
 
 
@@ -105,6 +123,6 @@ def logout_view(request):
 
 
 def thx(request):
-    return HttpResponse("Thank you for your order!")
+    return render(request, 'user/thx.html', {})
 
 
