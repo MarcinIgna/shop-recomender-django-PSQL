@@ -1,0 +1,22 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+  <h1>Update info</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ user.name }}"><br>
+    <label for="email">Email:</label>
+    <input type="email" name="email" value="{{ user.email }}"><br>
+    <label for="username">Username:</label>
+    <input type="text" name="username" value="{{ user.username }}"><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password"><br>
+    <input type="submit" value="Save">
+
+  </form>
+  <a href="{% url 'user:delete_account' %}">Delete Account</a>
+
+
+
+{% endblock %}

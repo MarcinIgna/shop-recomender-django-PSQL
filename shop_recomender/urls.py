@@ -1,7 +1,7 @@
 from django.urls import path
 from shop_recomender.views.user import (
     UserViewCreate, user_redirect, home, shop, add_to_basket,
-    checkout, basket_view, thx, logout_view
+    checkout, basket_view, thx, logout_view, user_settings, delete_user
     )
 from shop_recomender.views.product import ProductView
 from shop_recomender.views.admin_view import AdminView
@@ -13,6 +13,8 @@ app_name = 'user'
 urlpatterns = [
     path('', home, name='home'),
     path('reg', UserViewCreate.as_view(), name='regiestration'),
+    path('settings/', user_settings, name='user_settings'),
+    path('delete_account/', delete_user, name='delete_account'),
     path('redirect/', user_redirect, name='redirection'),
     path("shop/", shop, name="shop" ),
     path('login/', login, name='login'),

@@ -1,0 +1,51 @@
+/* static/css/homepage.css */
+
+/* Style for the page container */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+/* Style for the page title */
+h1 {
+    color: #333;
+    margin-top: 50px;
+}
+
+/* Style for the page content */
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Style for the recommendation list */
+ul {
+    list-style: disc;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+    color: black; /* Add this line to change the color of the recommendation text */
+}
+
+/* Style for the login and registration buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Style for the login and registration links */
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" 
+          type="text/css" 
+          href="{% static 'css/main_home.css' %}">
     <meta charset="UTF-8">
     <title>Homepage</title>
 </head>
@@ -13,6 +17,6 @@
         {% endfor %}
     </ul>
     <a href="{% url 'user:shop' %}"><button>List of Products</button></a>
-    <a href="{% url 'user:login' %}"><button>Settings</button></a>
+    <a href="{% url 'user:user_settings' %}"><button>Settings</button></a>
 </body>
 </html>
