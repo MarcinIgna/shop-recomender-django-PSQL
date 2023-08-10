@@ -1,5 +1,6 @@
 # Ignore compiled Python files
 *.pyc
+__pycache__/
 
 # Ignore the virtual environment directory
 env/
@@ -12,3 +13,15 @@ staticfiles/
 
 # Ignore the media files directory
 media/
+
+# Ignore log files
+logs/
+
+# Ignore compiled binaries
+*.exe
+
+# Ignore configuration files
+config.ini
+
+# Ignore temporary files
+*.tmp

@@ -1,6 +1,9 @@
 {% extends 'user/base.html' %}
 {% load static %} 
 
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/shop.css' %}">
+{% endblock %}
 
 {% block content %}
   <h1>Shop</h1>

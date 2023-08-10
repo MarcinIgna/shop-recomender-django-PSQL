@@ -4,19 +4,6 @@ from django.contrib.auth.hashers import check_password
 from shop_recomender.froms.login import UserFromLogin
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-# from django.contrib.auth import authenticate
-
-
-
-
-# def authenticate(username, password):
-#     hashed_password = make_password(password, salt="defaultSalt")
-#     try:
-#         user = User.objects.get(username=username, password=hashed_password)
-#         return user
-#     except:
-#         return None
-
 
 def authenticate(username, password):
     try:

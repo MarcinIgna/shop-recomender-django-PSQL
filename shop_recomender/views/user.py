@@ -12,7 +12,7 @@ from shop_recomender.models.order import Order
 from shop_recomender.models.basket import Basket
 from shop_recomender.models.product import Product
 from shop_recomender.models.user import User
-from shop_recomender.froms.user import UserFrom
+from shop_recomender.froms.user import UserFrom, UserFromUpdate
 
 
 
@@ -40,22 +40,22 @@ class UserViewCreate(FormView):
         )
         # Redirect to the success URL
         return redirect(self.get_success_url())
-# class UserViewCreate(FormView):
-#     template_name = 'user/user_regiestration.html'
-#     form_class = UserFrom
     
-#     def get_success_url(self) -> str:
-#         return reverse_lazy('user:redirection')
     
-#     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-#         return super().post(request, *args, **kwargs)
-    
-#     def form_valid(self, form: User) -> HttpResponse:
-#         user = User.objects.create(**form.cleaned_data)
-#         return super().form_valid(form)
-    
-   
+def user_settings(request):
+    user_id = request.session.get('my_user_id')
+    user = User.objects.get(id=user_id)
+    if request.method == 'POST':
+        form = UserFromUpdate(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user:user_settings')
+    else:
+        form = UserFromUpdate(instance=user)
+    return render(request, 'user/user_settings.html', {'form': form})
+
 def shop(request):
+    # Get all products
     products = Product.objects.all()
     print("Number of products:", products.count())
     context = {"products": products}
@@ -65,6 +65,8 @@ def shop(request):
 
 
 def add_to_basket(request, product_id):
+    """Add a product to the user's basket.
+    """
     if request.method == 'POST':
         product = get_object_or_404(Product, id=product_id)
         print("add to basket: ",request.session.get('my_user_id'))
@@ -81,6 +83,9 @@ def add_to_basket(request, product_id):
 
 
 def basket_view(request):
+    """
+    view the user's basket
+    """
     user_id = request.session.get('my_user_id')
     try:
         basket = Basket.objects.get(user_id=user_id)
@@ -114,12 +119,15 @@ def checkout(request):
     # Redirect to a thank you page or a confirmation page after checkout
     return redirect('user:thx')
 
-
-
+def delete_user(request):
+    user_id = request.session.get('my_user_id')
+    user = User.objects.get(id=user_id)
+    user.delete()
+    return redirect('user:home')
 
 def logout_view(request):
     logout(request)
-    return redirect('user:home')  # Replace 'user:home' with the appropriate URL name for your home page
+    return redirect('user:home')  
 
 
 def thx(request):
