@@ -1,7 +1,3 @@
-Musze dodac db !!!!!
-
----
-
 ## Project Description
 
 This project is a web application built using Django, a high-level Python web framework. The main goal of the application is to provide users with personalized product recommendations based on their past purchases.
@@ -71,7 +67,8 @@ This project is a web application built using Django, a high-level Python web fr
 
 8. Access the Application:
    - Open your web browser and go to `http://127.0.0.1:8000/` to access the application.
-   - Log in with the superuser account you created earlier to access the admin dashboard.
+   - Create user account make some purchases and after ur next login u will see recomendation.
+   - Create and log in with the superuser account and make admin from normal user to see admin dishboard.
    - Explore the platform, add products to the shopping basket, and view personalized recommendations.
 
 ### Technologies Used
